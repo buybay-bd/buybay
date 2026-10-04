@@ -7,11 +7,11 @@
    image: "images/a.jpg"  <- old single-photo way, still works */
 const CATEGORIES = [
   { name: "Electronics", icon: "📱" },
-  { name: "Fashion", icon: "👕" },
+ 
   { name: "Home Appliance", icon: "🏠" },
-  { name: "Beauty", icon: "💄" },
-  { name: "Grocery", icon: "🛒" },
-  { name: "Sports", icon: "⚽" },
+ 
+ 
+
   { name: "Kitchen", icon: "🍴" }
 ];
 
