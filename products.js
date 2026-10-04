@@ -110,7 +110,7 @@ const PRODUCTS = [
 {
   id: 6,
   name: "6 In 1 Combo Offer - Kitchen Items",
-  category: "Electronics",
+  category: "Kitchen",
   price: 1500,
   oldPrice: 2280,
   rating: 4.5,
@@ -125,10 +125,60 @@ const PRODUCTS = [
 },
 
    
+{
+  id: 7,
+  name: "2 In 1 Combo Offer - Kitchen Items",
+  category: "Kitchen",
+  price: 1149,
+  oldPrice: 1900,
+  rating: ,
+  stock: 32,
+  emoji: "🍴",
+  images: [
+    "https://i.imgur.com/22Qg4Lk.jpeg",   // main photo (shown on the product card)
+    "https://i.imgur.com/H7YMLmS.png",   // 2nd photo: replace with your own link
+    "https://i.imgur.com/hZl1uvO.png"    // 3rd photo: replace with your own link
+  ],
+  desc: ""
+},
 
 
+{
+  id: 8,
+  name: "2-in-1 Sprayable & Pourable Oil Bottle",
+  category: "Kitchen",
+  price: 400,
+  oldPrice: 460,
+  rating: ,
+  stock: 45,
+  emoji: "🍴",
+  images: [
+    "https://i.imgur.com/hZl1uvO.png",   // main photo (shown on the product card)
+    "https://i.imgur.com/xoo9zIi.png",   // 2nd photo: replace with your own link
+    "https://i.imgur.com/DvJSxBA.png"    // 3rd photo: replace with your own link
+  ],
+  desc: "Enhance your daily cooking with our 2-in-1 dual-function oil bottle, featuring versatile spray and pour modes, a leak-proof design, and heat-resistant glass for safe, hassle-free use. Available in 450ml and 600ml capacities with a wide mouth for easy cleaning, it keeps your kitchen neat and healthy."
+},
 
 
+{
+  id: 9,
+  name: "16-in-1 Multifunctional Vegetable Chopper & Mandoline Slicer",
+  category: "Kitchen",
+  price: 730,
+  oldPrice: 1900,
+  rating: ,
+  stock: 32,
+  emoji: "🍴",
+  images: [
+    "https://i.imgur.com/m3EUHdP.png",   // main photo (shown on the product card)
+    "https://i.imgur.com/AKQA8DW.png",   // 2nd photo: replace with your own link
+    "https://i.imgur.com/OLi4Lpf.png"    // 3rd photo: replace with your own link
+  ],
+  desc: "Streamline your meal prep with our 16-in-1 multifunctional vegetable chopper, featuring ultra-sharp stainless steel blades and food-grade ABS plastic for effortless slicing, dicing, and grating. Built with a built-in storage container, safety handguard, and non-slip base, it cuts prep time while keeping your kitchen clean, safe, and organized."
+},
+
+   
 
 
 
