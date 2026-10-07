@@ -171,6 +171,7 @@ const PRODUCTS = [
   emoji: "🫖",
   images: [
     "https://i.imgur.com/pmhDYtg.png",
+"https://i.imgur.com/2hs3erk.png",
     "https://i.imgur.com/ZAiLTTW.png"
   ],
   desc: "A 3-piece stainless steel vacuum flask set designed to keep your beverages hot or cold for longer. Durable, practical, and suitable for everyday use at home, office, or while traveling."
