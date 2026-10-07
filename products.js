@@ -7,11 +7,7 @@
    image: "images/a.jpg"  <- old single-photo way, still works */
 const CATEGORIES = [
   { name: "Electronics", icon: "📱" },
- 
   { name: "Home Appliance", icon: "🏠" },
- 
- 
-
   { name: "Kitchen", icon: "🍴" }
 ];
 
@@ -118,7 +114,7 @@ const PRODUCTS = [
     category: "Kitchen",
     price: 1149,
     oldPrice: 1900,
-    rating: 0, // <-- রেটিং ০ বসানো হয়েছে
+    rating: 0,
     stock: 32,
     emoji: "🍴",
     images: [
@@ -134,7 +130,7 @@ const PRODUCTS = [
     category: "Kitchen",
     price: 400,
     oldPrice: 460,
-    rating: 0, // <-- রেটিং ০ বসানো হয়েছে
+    rating: 0,
     stock: 45,
     emoji: "🍴",
     images: [
@@ -150,7 +146,7 @@ const PRODUCTS = [
     category: "Kitchen",
     price: 730,
     oldPrice: 1900,
-    rating: 0, // <-- রেটিং ০ বসানো হয়েছে
+    rating: 0,
     stock: 32,
     emoji: "🍴",
     images: [
@@ -159,21 +155,21 @@ const PRODUCTS = [
       "https://i.imgur.com/OLi4Lpf.png"    // 3rd photo
     ],
     desc: "Streamline your meal prep with our 16-in-1 multifunctional vegetable chopper, featuring ultra-sharp stainless steel blades and food-grade ABS plastic for effortless slicing, dicing, and grating. Built with a built-in storage container, safety handguard, and non-slip base, it cuts prep time while keeping your kitchen clean, safe, and organized."
+  },
+  {
+    id: 10,
+    name: "3-Piece Stainless Steel Vacuum Flask Set",
+    category: "Kitchen",
+    price: 550,
+    oldPrice: 680,
+    rating: 0,
+    stock: 15,
+    emoji: "🫖",
+    images: [
+      "https://i.imgur.com/pmhDYtg.png",
+      "https://i.imgur.com/2hs3erk.png",
+      "https://i.imgur.com/ZAiLTTW.png"
+    ],
+    desc: "A 3-piece stainless steel vacuum flask set designed to keep your beverages hot or cold for longer. Durable, practical, and suitable for everyday use at home, office, or while traveling."
   }
-   {
-  id: 9,
-  name: "3-Piece Stainless Steel Vacuum Flask Set",
-  category: "Kitchen",
-  price: 550,
-  oldPrice: 680,
-  rating: 0,
-  stock: 15,
-  emoji: "🫖",
-  images: [
-    "https://i.imgur.com/pmhDYtg.png",
-"https://i.imgur.com/2hs3erk.png",
-    "https://i.imgur.com/ZAiLTTW.png"
-  ],
-  desc: "A 3-piece stainless steel vacuum flask set designed to keep your beverages hot or cold for longer. Durable, practical, and suitable for everyday use at home, office, or while traveling."
-},
 ];
