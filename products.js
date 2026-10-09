@@ -171,5 +171,22 @@ const PRODUCTS = [
       "https://i.imgur.com/ZAiLTTW.png"
     ],
     desc: "A 3-piece stainless steel vacuum flask set designed to keep your beverages hot or cold for longer. Durable, practical, and suitable for everyday use at home, office, or while traveling."
-  }
+  },
+{
+    id: 11,
+    name: "K8 Sport True Wireless Earbuds",
+    category: "Electronics",
+    price: 480,
+    oldPrice: 700,
+    rating: 0,
+    stock: 12,
+    emoji: "📱",
+    images: [
+      "https://i.imgur.com/bPjuFEW.png",   // main photo
+      "https://i.imgur.com/tHsvzy1.png",   // 2nd photo
+      "https://i.imgur.com/IClsZFF.png"    // 3rd photo
+    ],
+    desc: "Designed for active lifestyles, the K8 Sport True Wireless Earbuds deliver powerful bass and crisp audio with an ergonomic ear-hook design that stays securely in place during workouts. Features fast Bluetooth connectivity, touch controls, sweat resistance, and a compact charging case for reliable all-day performance."
+  },
+   
 ];
