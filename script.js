@@ -6,7 +6,7 @@ const CONFIG = {
   BKASH: "01613805381",                // your bKash number
   NAGAD: "01575478716",                // your Nagad number
   DELIVERY_DHAKA: 100,
-  DELIVERY_OUTSIDE: 1500,
+  DELIVERY_OUTSIDE: 150,
   FREE_OVER: 5000                      // free delivery above this subtotal
 };
 const COUPONS = { BUYBAY10: 10, WELCOME5: 5 }; // coupon code: % off. Edit freely
@@ -37,11 +37,21 @@ const stars = r => "★".repeat(Math.round(r)) + "☆".repeat(5 - Math.round(r))
 const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch { return d; } };
 const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 const byId = id => PRODUCTS.find(p => p.id === id);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+/* colour / size options: optional per product (colors: [...], sizes: [...] in products.js) */
+const optList = v => Array.isArray(v) ? v.map(x => String(x).trim()).filter(Boolean) : (v ? String(v).split(",").map(x => x.trim()).filter(Boolean) : []);
+const colorsOf = p => optList(p.colors), sizesOf = p => optList(p.sizes);
+const needsOpt = p => colorsOf(p).length > 0 || sizesOf(p).length > 0;
+const mkKey = (id, c = "", s = "") => id + "|" + c + "|" + s;            // cart key = product + colour + size
+const parseKey = k => { const [id, c = "", s = ""] = String(k).split("|"); return { id: +id, color: c, size: s }; };
+const optText = k => { const o = parseKey(k); return [o.color && "Color: " + o.color, o.size && "Size: " + o.size].filter(Boolean).join(" · "); };
 const imgs = p => (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
 const pic = p => imgs(p).length ? `<img referrerpolicy="no-referrer" src="${imgSrc(imgs(p)[0])}" alt="${p.name}" data-e="${p.emoji || "🛍️"}" loading="lazy">` : p.emoji;
 
-let cart = load("bb_cart", {});   // {id: qty}
+let cart = load("bb_cart", {});   // {"id|color|size": qty}
 let wish = load("bb_wish", []);   // [id]
+Object.keys(cart).forEach(k => { if (!byId(parseKey(k).id)) delete cart[k]; });   // drop products that no longer exist
+wish = wish.filter(id => byId(id));
 let view = "cart";
 const F = { cat: "all", q: "", sort: "def", price: "a" };
 const inPrice = x => F.price === "a" || (F.price === "1" && x < 1000) || (F.price === "2" && x >= 1000 && x <= 2500) || (F.price === "3" && x > 2500);
@@ -123,19 +133,25 @@ function commit() {
   if ($("#drawer").classList.contains("open")) renderDrawer();
   if ($("#grid")) renderGrid();
 }
-function addToCart(id, n = 1) {
+const otherQty = (id, k) => Object.entries(cart).filter(([x]) => x !== k && parseKey(x).id === id).reduce((a, [, q]) => a + q, 0);   // same product, other colour/size
+function addToCart(id, n = 1, color = "", size = "") {
   const p = byId(id); if (!p || p.stock < 1) return;
-  cart[id] = Math.min((cart[id] || 0) + n, p.stock);
+  const k = mkKey(id, color, size), room = p.stock - otherQty(id, k);
+  if (room < 1 || (cart[k] || 0) >= room) return toast("Only " + p.stock + " in stock");
+  cart[k] = Math.min((cart[k] || 0) + n, room);
   commit(); toast("Added to cart");
 }
-function setQty(id, q) { if (q < 1) delete cart[id]; else cart[id] = Math.min(q, byId(id).stock); commit(); }
+function setQty(k, q) {
+  if (q < 1) delete cart[k]; else { const { id } = parseKey(k); cart[k] = Math.min(q, byId(id).stock - otherQty(id, k)); }
+  commit();
+}
 function toggleWish(id) {
   wish = wish.includes(id) ? wish.filter(x => x !== id) : [...wish, id];
   commit(); toast(wish.includes(id) ? "Saved to wishlist" : "Removed from wishlist");
 }
 let direct = null;                    // set by "Buy now": checkout only this product, cart untouched
 const items = () => direct || cart;
-const subtotal = () => Object.entries(items()).reduce((s, [id, q]) => s + byId(+id).price * q, 0);
+const subtotal = () => Object.entries(items()).reduce((s, [k, q]) => s + byId(parseKey(k).id).price * q, 0);
 let coupon = null;
 const discount = () => coupon ? Math.round(subtotal() * COUPONS[coupon] / 100) : 0;
 const delivery = district => subtotal() === 0 || subtotal() >= CONFIG.FREE_OVER ? 0 : (district === "Dhaka" ? CONFIG.DELIVERY_DHAKA : CONFIG.DELIVERY_OUTSIDE);
@@ -153,11 +169,11 @@ function renderDrawer() {
     df.innerHTML = "";
   } else {
     $("#dt").textContent = "Your cart";
-    const ids = Object.keys(cart).map(Number);
-    db.innerHTML = ids.length ? ids.map(id => { const p = byId(id), q = cart[id]; return `
-      <div class="row"><div class="t">${pic(p)}</div><div class="n"><b>${p.name}</b>${money(p.price * q)}</div>
-      <div class="qty"><button data-dec="${id}" aria-label="Decrease">−</button><span>${q}</span><button data-inc="${id}" aria-label="Increase">+</button></div>
-      <button class="x" data-rm="${id}" aria-label="Remove">✕</button></div>`; }).join("")
+    const ids = Object.keys(cart);
+    db.innerHTML = ids.length ? ids.map(k => { const p = byId(parseKey(k).id), q = cart[k], o = optText(k), ek = esc(k); return `
+      <div class="row"><div class="t">${pic(p)}</div><div class="n"><b>${p.name}</b>${o ? `<small>${esc(o)}</small>` : ""}${money(p.price * q)}</div>
+      <div class="qty"><button data-dec="${ek}" aria-label="Decrease">−</button><span>${q}</span><button data-inc="${ek}" aria-label="Increase">+</button></div>
+      <button class="x" data-rm="${ek}" aria-label="Remove">✕</button></div>`; }).join("")
       : `<p class="empty">Your cart is empty. Add something you like!</p>`;
     df.innerHTML = ids.length ? `<div class="sum"><span>Subtotal</span><b>${money(subtotal())}</b></div>
       <p class="fd">${subtotal() >= CONFIG.FREE_OVER ? "🎉 You get free delivery!" : "Add " + money(CONFIG.FREE_OVER - subtotal()) + " more for free delivery"}</p><div class="bar"><i style="width:${Math.min(100, subtotal() / CONFIG.FREE_OVER * 100)}%"></i></div><div style="height:12px"></div>
@@ -166,12 +182,12 @@ function renderDrawer() {
   }
   db.onclick = e => {
     const d = e.target.closest("button"); if (!d) return;
-    const g = k => +d.dataset[k];
-    if (d.dataset.inc) setQty(g("inc"), cart[g("inc")] + 1);
-    else if (d.dataset.dec) setQty(g("dec"), cart[g("dec")] - 1);
-    else if (d.dataset.rm) setQty(g("rm"), 0);
-    else if (d.dataset.add) { addToCart(g("add")); }
-    else if (d.dataset.wish) toggleWish(g("wish"));
+    const ds = d.dataset;
+    if (ds.inc) setQty(ds.inc, cart[ds.inc] + 1);
+    else if (ds.dec) setQty(ds.dec, cart[ds.dec] - 1);
+    else if (ds.rm) setQty(ds.rm, 0);
+    else if (ds.add) { const p = byId(+ds.add); if (needsOpt(p)) { closeAll(); openProduct(p.id); toast("Please choose your options"); } else addToCart(p.id); }
+    else if (ds.wish) toggleWish(+ds.wish);
   };
 }
 
@@ -193,20 +209,33 @@ function initGallery(p) {
   m.addEventListener("touchend", e => { const d = e.changedTouches[0].clientX - x; if (Math.abs(d) > 40) go(i + (d < 0 ? 1 : -1)); });
 }
 function openProduct(id) {
-  const p = byId(id), out = p.stock < 1;
+  const p = byId(id), out = p.stock < 1, cols = colorsOf(p), szs = sizesOf(p);
+  const chips = (label, arr, g) => arr.length ? `<div class="opt"><div class="ol">${label}: <b id="sel-${g}">${arr.length === 1 ? esc(arr[0]) : "Select"}</b></div><div class="oc">${arr.map(v => `<button type="button" class="chip ${arr.length === 1 ? "on" : ""}" data-g="${g}" data-o="${esc(v)}">${esc(v)}</button>`).join("")}</div></div>` : "";
+  const optsHtml = (cols.length || szs.length) ? chips("Color", cols, "color") + chips("Size", szs, "size") + '<p class="err" id="operr"></p>' : "";
+  const sel = { color: cols.length === 1 ? cols[0] : "", size: szs.length === 1 ? szs[0] : "" };
   $("#pmc").innerHTML = `<div class="pd">${gallery(p)}<div class="info">
     <small style="color:var(--mute)">${p.category}</small><h3 style="font-size:1.4rem;color:var(--navy)">${p.name}</h3>
     <div class="stars">${stars(p.rating)} <span style="color:var(--mute)">${p.rating}</span></div>
     <div class="price" style="font-size:1.5rem">${money(p.price)}${p.oldPrice ? `<s>${money(p.oldPrice)}</s>` : ""}</div>
-    <p>${p.desc}</p><p style="color:${out ? "#d00" : "#0a8a3a"};font-weight:600">${out ? "Out of stock" : p.stock + " in stock"}</p>
+    ${optsHtml}<p>${p.desc}</p><p style="color:${out ? "#d00" : "#0a8a3a"};font-weight:600">${out ? "Out of stock" : p.stock + " in stock"}</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto">
       <button class="btn" id="pa" ${out ? "disabled" : ""}>Add to cart</button>
       <button class="btn or" id="pb" ${out ? "disabled" : ""}>Buy now</button>
       <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent("Hi BuyBay, I want to ask about: " + p.name)}">Ask on WhatsApp</a>
       <button class="btn ghost" id="pw">${wish.includes(id) ? "♥ Saved" : "♡ Wishlist"}</button></div></div></div>`;
   initGallery(p);
-  $("#pa").onclick = () => addToCart(id);
-  $("#pb").onclick = () => { direct = { [id]: 1 }; closeAll(); openCheckout(); };
+  $$("#pmc .chip").forEach(b => b.onclick = () => {
+    const g = b.dataset.g; sel[g] = b.dataset.o;
+    $$(`#pmc .chip[data-g="${g}"]`).forEach(x => x.classList.toggle("on", x === b));
+    $("#sel-" + g).textContent = b.dataset.o; $("#operr").textContent = "";
+  });
+  const need = () => {
+    const m = []; if (cols.length && !sel.color) m.push("color"); if (szs.length && !sel.size) m.push("size");
+    if (m.length) { $("#operr").textContent = "Please select a " + m.join(" and ") + "."; return false; }
+    return true;
+  };
+  $("#pa").onclick = () => { if (need()) addToCart(id, 1, sel.color, sel.size); };
+  $("#pb").onclick = () => { if (!need()) return; direct = { [mkKey(id, sel.color, sel.size)]: 1 }; closeAll(); openCheckout(); };
   $("#pw").onclick = e => { toggleWish(id); e.target.textContent = wish.includes(id) ? "♥ Saved" : "♡ Wishlist"; };
   openModal("#pm");
 }
@@ -216,7 +245,7 @@ function openCheckout() {
   if (!Object.keys(items()).length) return toast("Your cart is empty");
   $("#drawer").classList.remove("open");
   $("#cmc").innerHTML = `<div class="form"><h3>Checkout${direct ? " (Buy now)" : ""}</h3>
-    ${direct ? `<div class="note">Buying now: <b>${byId(+Object.keys(direct)[0]).name}</b> x1. Your cart is not changed.</div>` : ""}
+    ${direct ? `<div class="note">Buying now: <b>${byId(parseKey(Object.keys(direct)[0]).id).name}</b>${optText(Object.keys(direct)[0]) ? " (" + esc(optText(Object.keys(direct)[0])) + ")" : ""} x1. Your cart is not changed.</div>` : ""}
     <div class="two"><div><label for="fn">Full name *</label><input id="fn" autocomplete="name"></div>
     <div><label for="fp">Mobile number *</label><input id="fp" inputmode="tel" placeholder="01XXXXXXXXX" autocomplete="tel"></div></div>
     <div class="two"><div><label for="fd">District *</label><select id="fd"><option value="">Select district</option>${DISTRICTS.map(d => `<option>${d}</option>`).join("")}</select></div>
@@ -261,7 +290,7 @@ function placeOrder(via) {
   err("");
   const del = delivery(dist), disc = discount(), total = subtotal() - disc + del;
   const oid = "BB" + Date.now().toString().slice(-7);
-  const lines = Object.entries(items()).map(([id, q]) => { const p = byId(+id); return `• ${p.name} x${q} = ${money(p.price * q)}`; });
+  const lines = Object.entries(items()).map(([k, q]) => { const p = byId(parseKey(k).id), o = optText(k); return `• ${p.name}${o ? " (" + o + ")" : ""} x${q} = ${money(p.price * q)}`; });
   const msg = `🛍️ NEW ORDER ${oid}\n\n${lines.join("\n")}\n\nSubtotal: ${money(subtotal())}${disc ? "\nDiscount (" + coupon + "): -" + money(disc) : ""}\nDelivery: ${money(del)}\nTOTAL: ${money(total)}\n\nPayment: ${pay}${tx ? "\nTrxID: " + tx : ""}\n\nName: ${name}\nPhone: ${phone}\nDistrict: ${dist}${v("#ft") ? "\nThana: " + v("#ft") : ""}\nAddress: ${addr}`;
   if (!direct) cart = {};   // Buy now keeps the cart as it was
   direct = null; commit();
@@ -299,7 +328,7 @@ function renderGrid() {
       <div class="pic" data-v="${p.id}">${pic(p)}</div>
       <div class="info"><h3 data-v="${p.id}">${p.name}</h3><div class="stars">${stars(p.rating)}</div>
         <div class="price">${money(p.price)}${p.oldPrice ? `<s>${money(p.oldPrice)}</s>` : ""}</div>
-        <button class="btn" data-a="${p.id}" ${p.stock < 1 ? "disabled" : ""}>${p.stock < 1 ? "Out of stock" : "Add to cart"}</button></div>
+        <button class="btn" data-a="${p.id}" ${p.stock < 1 ? "disabled" : ""}>${p.stock < 1 ? "Out of stock" : needsOpt(p) ? "Choose options" : "Add to cart"}</button></div>
     </article>`).join("") : `<p class="empty">No products found. Try another search or category.</p>`;
 }
 function initHome() {
@@ -312,12 +341,13 @@ function initHome() {
   $("#sort").onchange = e => { F.sort = e.target.value; renderGrid(); };
   $("#grid").onclick = e => {
     const t = e.target.closest("[data-a],[data-w],[data-v]"); if (!t) return;
-    if (t.dataset.a) addToCart(+t.dataset.a);
+    if (t.dataset.a) { const p = byId(+t.dataset.a); needsOpt(p) ? openProduct(p.id) : addToCart(p.id); }
     else if (t.dataset.w) toggleWish(+t.dataset.w);
     else openProduct(+t.dataset.v);
   };
   $("#rgrid").innerHTML = REVIEWS.map(r => `<div class="rev"><div class="stars">${stars(r.rating)}</div><p>${r.text}</p><small><b>${r.name}</b>, ${r.city}</small></div>`).join("");
 }
+
 function initWarranty() {
   $("#wpr").innerHTML = '<option value="">Select product</option>' + PRODUCTS.map(p => `<option>${p.name}</option>`).join("");
   const send = via => {
