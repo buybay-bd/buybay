@@ -6,7 +6,7 @@ const CONFIG = {
   BKASH: "01613805381",                // your bKash number
   NAGAD: "01575478716",                // your Nagad number
   DELIVERY_DHAKA: 100,
-  DELIVERY_OUTSIDE: 150,
+  DELIVERY_OUTSIDE: 1500,
   FREE_OVER: 5000                      // free delivery above this subtotal
 };
 const COUPONS = { BUYBAY10: 10, WELCOME5: 5 }; // coupon code: % off. Edit freely
