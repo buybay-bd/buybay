@@ -21,6 +21,14 @@ document.addEventListener("error", e => {
   // 2nd failure: show the emoji instead of a broken image
   if (t.dataset.e) t.replaceWith(document.createTextNode(t.dataset.e)); else if (t.closest(".th")) t.closest(".th").style.display = "none";
 }, true);
+/* colour / size option styles (built in here, so they work even if style.css is cached or not updated) */
+document.head.insertAdjacentHTML("beforeend", `<style id="opt-css">
+.opt{margin:6px 0}.ol{font-size:.9rem;color:#5d6780;margin-bottom:6px}.ol b{color:#0b1f4d}
+.oc{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-block;padding:7px 16px;border:1.5px solid #e4e8f1;border-radius:999px;background:#fff;color:#1a2233;font-weight:600;font-size:.9rem;cursor:pointer;line-height:1.3}
+.chip:hover{border-color:#1f4fd8}.chip.on{border-color:#1f4fd8;background:#1f4fd8;color:#fff}
+.row .n small{display:block;color:#5d6780;font-size:.8rem;font-weight:500}
+</style>`);
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const ROOT = document.body.dataset.root || ""; // "" on root pages, "../" inside folders
