@@ -19,7 +19,7 @@ document.addEventListener("error", e => {
   // 1st failure: retry through a free image proxy (helps when a host is blocked on the visitor's network)
   if (/^https?:/.test(src) && !t.dataset.tried && !src.includes("wsrv.nl")) { t.dataset.tried = "1"; t.src = "https://wsrv.nl/?url=" + encodeURIComponent(src); return; }
   // 2nd failure: show the emoji instead of a broken image
-  if (t.dataset.e) t.replaceWith(document.createTextNode(t.dataset.e)); else if (t.closest(".th")) t.closest(".th").style.display = "none";
+  if (t.dataset.e) t.replaceWith(document.createTextNode(t.dataset.e)); else if (t.closest(".th")) t.closest(".th").style.display = "none"; else if (t.closest(".hs")) t.style.visibility = "hidden";
 }, true);
 /* colour / size option styles (built in here, so they work even if style.css is cached or not updated) */
 document.head.insertAdjacentHTML("beforeend", `<style id="opt-css">
@@ -28,6 +28,19 @@ document.head.insertAdjacentHTML("beforeend", `<style id="opt-css">
 .chip{display:inline-block;padding:7px 16px;border:1.5px solid #e4e8f1;border-radius:999px;background:#fff;color:#1a2233;font-weight:600;font-size:.9rem;cursor:pointer;line-height:1.3}
 .chip:hover{border-color:#1f4fd8}.chip.on{border-color:#1f4fd8;background:#1f4fd8;color:#fff}
 .row .n small{display:block;color:#5d6780;font-size:.8rem;font-weight:500}
+</style>`);
+document.head.insertAdjacentHTML("beforeend", `<style id="hb-css">
+/* hero advertisement slider */
+.hb[hidden]{display:none!important}
+.hero .art.hb{display:block;position:relative;overflow:hidden;padding:0;font-size:1rem;width:100%;max-width:460px;justify-self:end;aspect-ratio:527/533;border-radius:28px;background:#0b1f4d;box-shadow:0 24px 50px -20px #000a}
+.htrack{display:flex;height:100%;transition:transform .6s ease}
+.hs{flex:0 0 100%;height:100%}
+.hs img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.hdots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:7px}
+.hdots button{width:8px;height:8px;border-radius:50%;background:#ffffff88;padding:0}
+.hdots button.on{background:#fff;width:22px;border-radius:9px}
+@media(max-width:820px){.hero .art.hb{justify-self:center}}
+@media(max-width:600px){.hero .art.hb{display:block;max-width:100%}}
 </style>`);
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
@@ -356,6 +369,26 @@ function initHome() {
   $("#rgrid").innerHTML = REVIEWS.map(r => `<div class="rev"><div class="stars">${stars(r.rating)}</div><p>${r.text}</p><small><b>${r.name}</b>, ${r.city}</small></div>`).join("");
 }
 
+/* ---------- hero advertisement slider (image links come from banner.js) ---------- */
+function initHeroBanner() {
+  const box = $("#hbanner"); if (!box) return;
+  const list = (typeof BANNERS !== "undefined" && Array.isArray(BANNERS) ? BANNERS : []).map(x => String(x).trim()).filter(Boolean);
+  if (!list.length) { box.hidden = true; box.innerHTML = ""; return; }   // no links = nothing shown
+  const sec = (typeof BANNER_SECONDS === "number" && BANNER_SECONDS > 0) ? BANNER_SECONDS : 2;
+  box.innerHTML = `<div class="htrack">${list.map((u, i) => `<div class="hs"><img referrerpolicy="no-referrer" src="${imgSrc(u)}" alt="Advertisement ${i + 1}" draggable="false"></div>`).join("")}</div>` +
+    (list.length > 1 ? `<div class="hdots">${list.map((_, i) => `<button type="button" data-i="${i}" aria-label="Show image ${i + 1}"></button>`).join("")}</div>` : "");
+  box.hidden = false;
+  const track = box.querySelector(".htrack"), dots = [...box.querySelectorAll(".hdots button")];
+  let i = 0, timer = null, x0 = null;
+  const go = n => { i = (n + list.length) % list.length; track.style.transform = `translateX(-${i * 100}%)`; dots.forEach((d, k) => d.classList.toggle("on", k === i)); };
+  const stop = () => { clearInterval(timer); timer = null; };
+  const play = () => { stop(); if (list.length > 1) timer = setInterval(() => go(i + 1), sec * 1000); };
+  go(0); play();
+  dots.forEach(d => d.onclick = () => { go(+d.dataset.i); play(); });
+  box.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  box.addEventListener("touchend", e => { if (x0 !== null) { const d = e.changedTouches[0].clientX - x0; if (Math.abs(d) > 40) go(i + (d < 0 ? 1 : -1)); x0 = null; } play(); });
+  box.addEventListener("mouseenter", stop); box.addEventListener("mouseleave", play);
+}
 function initWarranty() {
   $("#wpr").innerHTML = '<option value="">Select product</option>' + PRODUCTS.map(p => `<option>${p.name}</option>`).join("");
   const send = via => {
@@ -379,5 +412,6 @@ function initContact() {
 
 buildShell(); commit();
 if ($("#grid")) initHome();
+if ($("#hbanner")) initHeroBanner();
 if ($("#cform")) initContact();
 if ($("#wform")) initWarranty();
