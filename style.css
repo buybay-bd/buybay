@@ -189,3 +189,11 @@ img{font-size:.8rem;color:var(--mute)}
 /* Footer logo: same colours as the header logo (Buy black, Bay blue) on a white badge */
 footer .logo{display:inline-block;background:#fff;padding:6px 16px;border-radius:12px}
 footer .logo b{color:#000}footer .logo i{color:var(--blue)}
+
+
+/* colour / size option chips */
+.opt{margin:2px 0}.ol{font-size:.9rem;color:var(--mute);margin-bottom:6px}.ol b{color:var(--navy)}
+.oc{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:7px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-weight:600;font-size:.88rem;cursor:pointer}
+.chip:hover{border-color:var(--blue)}.chip.on{border-color:var(--blue);background:var(--blue);color:#fff}
+.row .n small{display:block;color:var(--mute);font-size:.8rem;font-weight:500}
