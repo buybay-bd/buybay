@@ -4,7 +4,13 @@
    price (BDT), oldPrice (0 = no discount), rating (1-5), stock (0 = sold out),
    emoji (shown if no image), desc,
    images: ["images/a.jpg", "images/b.jpg", "images/c.jpg"]  <- add as many photos as you like (first one is the main photo)
-   image: "images/a.jpg"  <- old single-photo way, still works */
+   image: "images/a.jpg"  <- old single-photo way, still works
+
+   OPTIONAL colour / size choice (see product id 12 below as an example):
+   colors: ["Black", "Navy", "Red"]   <- only products with this line show a Color choice
+   sizes:  ["M", "L", "XL"]           <- only products with this line show a Size choice
+   Use only colors, only sizes, or both. No line (or []) = no option shown for that product.
+   The customer must pick the option before Add to cart / Buy now, and the choice goes into the order message. */
 const CATEGORIES = [
   { name: "Electronics", icon: "📱" },
   { name: "Home Appliance", icon: "🏠" },
@@ -188,5 +194,19 @@ const PRODUCTS = [
     ],
     desc: "Designed for active lifestyles, the K8 Sport True Wireless Earbuds deliver powerful bass and crisp audio with an ergonomic ear-hook design that stays securely in place during workouts. Features fast Bluetooth connectivity, touch controls, sweat resistance, and a compact charging case for reliable all-day performance."
   },
-   
+  {
+    id: 12,
+    name: "DEMO – Waterproof Kitchen Apron (Colour & Size options)",   // DEMO product: delete this whole block when you no longer need it
+    category: "Kitchen",
+    price: 450,
+    oldPrice: 600,
+    rating: 4.5,
+    stock: 20,
+    emoji: "🍴",
+    images: [],                              // add your own photo links here
+    colors: ["Black", "Navy", "Red"],        // <- Color choice shows because this line exists
+    sizes: ["M", "L", "XL"],                 // <- Size choice shows because this line exists
+    desc: "Demo product to show how colour and size options work. Customers must pick a colour and a size before adding to cart or buying now. Delete this product when you are done testing."
+  },
+
 ];
