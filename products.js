@@ -397,6 +397,36 @@ const PRODUCTS = [
   sizes: ["M", "L", "XL", "XXL"],
   desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie features a modern look perfect for university, casual outings, travel, and daily wear. Available in classic Black and White colour options, with sizes M, L, XL, and XXL. A versatile winter essential that combines comfort, style, and affordability."
 },
-   
+   {
+  id: 24,
+  name: "Awei T51 True Wireless Earbuds",
+  category: "Electronics",
+  price: 1250,
+  oldPrice: 1560,
+  rating: 0,
+  stock: 20,
+  emoji: "📱",
+  images: [
+    "https://i.imgur.com/0fAuwhu.png",
+    "https://i.imgur.com/aa5unrZ.png"
+  ],
+  desc: "Experience wireless freedom with the Awei T51 True Wireless Earbuds. Designed for everyday listening, these earbuds offer a stylish, compact design that's perfect for music, videos, calls, study sessions, and travel. Enjoy a convenient wireless experience and a comfortable fit wherever you go. A great choice for everyday entertainment at an affordable price."
+},
+   {
+  id: 25,
+  name: "SQ-112 Smart Touch Lamp Quran Speaker",
+  category: "Electronics",
+  price: 2420,
+  oldPrice: 2600,
+  rating: 0,
+  stock: 20,
+  emoji: "📱",
+  images: [
+    "https://i.imgur.com/6tkivAA.png",
+    "https://i.imgur.com/p6c78GI.png",
+    "https://i.imgur.com/w5qRyDe.png"
+  ],
+  desc: "Enhance your spiritual experience with the SQ-112 Smart Touch Lamp Quran Speaker. Combining elegant lamp design with a Quran speaker, it is a beautiful addition to your bedroom, living room, or prayer space. Its smart touch control offers convenient operation, while its stylish design makes it suitable for everyday use and gifting. A thoughtful choice for anyone looking to combine modern home décor with Islamic audio features."
+},
    
 ];
