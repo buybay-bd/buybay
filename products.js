@@ -14,6 +14,7 @@
 const CATEGORIES = [
   { name: "Electronics", icon: "📱" },
   { name: "Home Appliance", icon: "🏠" },
+    { name: "Winter", icon: "🧥" },
   { name: "Kitchen", icon: "🍴" }
 ];
 
@@ -194,19 +195,208 @@ const PRODUCTS = [
     ],
     desc: "Designed for active lifestyles, the K8 Sport True Wireless Earbuds deliver powerful bass and crisp audio with an ergonomic ear-hook design that stays securely in place during workouts. Features fast Bluetooth connectivity, touch controls, sweat resistance, and a compact charging case for reliable all-day performance."
   },
-  {
-    id: 12,
-    name: "DEMO – Waterproof Kitchen Apron (Colour & Size options)",   // DEMO product: delete this whole block when you no longer need it
-    category: "Kitchen",
-    price: 450,
-    oldPrice: 600,
-    rating: 4.5,
-    stock: 20,
-    emoji: "🍴",
-    images: [],                              // add your own photo links here
-    colors: ["Black", "Navy", "Red"],        // <- Color choice shows because this line exists
-    sizes: ["M", "L", "XL"],                 // <- Size choice shows because this line exists
-    desc: "Demo product to show how colour and size options work. Customers must pick a colour and a size before adding to cart or buying now. Delete this product when you are done testing."
-  },
+{
+  id: 12,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/ft7XkfF.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
 
+   {
+  id: 13,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 90,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/JOWyJP4.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 14,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 90,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/I83PGYD.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+{
+  id: 15,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/DDO9jVr.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 16,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/H6E69mE.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 17,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/a2bbjX6.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+  {
+  id: 18,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/ObxXoim.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 19,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/87M1dxD.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 20,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/lAFxDlR.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie offers a modern look that's perfect for casual outings, university, travel, and daily wear. Its versatile black colour pairs effortlessly with any outfit, while the comfortable fit makes it an ideal choice for chilly days. Available in M, L, XL, and XXL. Upgrade your winter wardrobe with style and comfort at an affordable price."
+},
+
+   {
+  id: 21,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/Mt3HLZB.png",
+    "https://i.imgur.com/D6BUBVe.png"
+  ],
+  colors: ["Black", "White"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie features a modern look perfect for university, casual outings, travel, and daily wear. Available in classic Black and White colour options, with sizes M, L, XL, and XXL. A versatile winter essential that combines comfort, style, and affordability."
+},
+
+   {
+  id: 22,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/kIJE338.png"
+  ],
+  colors: ["Black"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie features a modern look perfect for university, casual outings, travel, and daily wear. Available in classic Black and White colour options, with sizes M, L, XL, and XXL. A versatile winter essential that combines comfort, style, and affordability."
+},
+   {
+  id: 23,
+  name: "Men's Stylish Winter Hoodie",
+  category: "Winter",
+  price: 690,
+  oldPrice: 940,
+  rating: 0,
+  stock: 112,
+  emoji: "🧥",
+  images: [
+    "https://i.imgur.com/XnUTG4X.png"
+  ],
+  colors: ["Black", "White"],
+  sizes: ["M", "L", "XL", "XXL"],
+  desc: "Stay warm and stylish this winter with our Men's Stylish Winter Hoodie. Designed for everyday comfort, this hoodie features a modern look perfect for university, casual outings, travel, and daily wear. Available in classic Black and White colour options, with sizes M, L, XL, and XXL. A versatile winter essential that combines comfort, style, and affordability."
+},
+   
+   
 ];
