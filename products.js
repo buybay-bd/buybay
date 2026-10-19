@@ -15,7 +15,8 @@ const CATEGORIES = [
   { name: "Electronics", icon: "📱" },
   { name: "Home Appliance", icon: "🏠" },
     { name: "Winter", icon: "🧥" },
-  { name: "Kitchen", icon: "🍴" }
+  { name: "Kitchen", icon: "🍴" },
+   { name: "Combo Offers", icon: "✨" }
 ];
 
 const PRODUCTS = [
@@ -102,7 +103,7 @@ const PRODUCTS = [
   {
     id: 6,
     name: "6 In 1 Combo Offer - Kitchen Items",
-    category: "Kitchen",
+    category: "Combo Offers",
     price: 1500,
     oldPrice: 2280,
     rating: 4.5,
@@ -118,7 +119,7 @@ const PRODUCTS = [
   {
     id: 7,
     name: "2 In 1 Combo Offer - Kitchen Items",
-    category: "Kitchen",
+    category: "Combo Offers",
     price: 1149,
     oldPrice: 1900,
     rating: 0,
@@ -447,5 +448,54 @@ const PRODUCTS = [
   colors: ["Black", "White"],
   desc: "Keep your grooming routine simple with the ENCHEN Boost USB Electric Hair Clipper & Beard Trimmer. Featuring a sleek, modern design, this clipper is suitable for everyday hair trimming and beard grooming at home or while travelling. Its USB charging design offers convenient power access, while the compact build makes it easy to handle and store. Available in Black and White to match your style. Enjoy convenient personal grooming at an affordable price."
 },
+   {
+  id: 27,
+  name: "Premium Skinning Knife",
+  category: "Kitchen",
+  price: 550,
+  oldPrice: 640,
+  rating: 0,
+  stock: 13,
+  emoji: "🔪",
+  images: [
+    "https://i.imgur.com/co115oD.png",
+    "https://i.imgur.com/OqD8zPj.png"
+  ],
+  desc: "Upgrade your kitchen toolkit with the Premium Skinning Knife, designed for precise food preparation. Its specialized blade shape is suitable for separating meat from skin and trimming meat with greater control. Featuring a practical design for kitchen use, this knife is a useful addition for home cooks and food preparation tasks. Handle carefully, keep the blade clean and dry, and store it securely after use."
+},
+{
+  id: 28,
+  name: "16-Color Plug-In USB Galaxy Night Light",
+  category: "Home Appliance",
+  price: 1050,
+  oldPrice: 1200,
+  rating: 4.5,
+  stock: 10,
+  emoji: "🌌",
+  images: [
+    "https://i.imgur.com/46DwNM8.png",
+    "https://i.imgur.com/IeRJHM9.png",
+    "https://i.imgur.com/8x9FR6L.png"
+  ],
+  desc: "Transform your room into a magical galaxy with the 16-Color Plug-In USB Galaxy Night Light. Featuring 16 vibrant colour options, this decorative light creates a relaxing and beautiful atmosphere for bedrooms, living rooms, gaming spaces, and special occasions. Its compact design makes it easy to place wherever you want a touch of ambient lighting. Perfect for everyday room décor or as a thoughtful gift."
+},
+   {
+  id: 29,
+  name: "HONPHIER 108 LED Warm White Tree Lamp",
+  category: "Home Appliance",
+  price: 1300,
+  oldPrice: 1480,
+  rating: 4.5,
+  stock: 14,
+  emoji: "🌳",
+  images: [
+    "https://i.imgur.com/yKD4NFm.png",
+    "https://i.imgur.com/PmfGd6K.png",
+    "https://i.imgur.com/siaaFpH.png",
+    "https://i.imgur.com/WfD6CUG.png"
+  ],
+  desc: "Add a warm and elegant touch to your home with the HONPHIER 108 LED Warm White Tree Lamp. Featuring 108 LED lights with a beautiful warm white glow, this decorative tree lamp creates a cozy and relaxing atmosphere in bedrooms, living rooms, and other spaces. Its stylish tree-inspired design makes it perfect for home décor, festive decorations, and special occasions. A beautiful lighting accent for your home or a thoughtful gift for someone special."
+},
+   
    
 ];
