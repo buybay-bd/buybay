@@ -10,6 +10,7 @@ const BANNER_SECONDS = 2;
 const BANNERS = [
    "https://i.imgur.com/0aEiWTD.png",
    "https://i.imgur.com/NNgYWNw.png",
+    "https://i.imgur.com/mCNUEC1.png",
    "https://i.imgur.com/ARJ0xxx.png",
     "https://i.imgur.com/4Z3Djea.png",
     "https://i.imgur.com/sKUZ6YU.jpeg",
