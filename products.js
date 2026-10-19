@@ -429,4 +429,23 @@ const PRODUCTS = [
   desc: "Enhance your spiritual experience with the SQ-112 Smart Touch Lamp Quran Speaker. Combining elegant lamp design with a Quran speaker, it is a beautiful addition to your bedroom, living room, or prayer space. Its smart touch control offers convenient operation, while its stylish design makes it suitable for everyday use and gifting. A thoughtful choice for anyone looking to combine modern home décor with Islamic audio features."
 },
    
+   {
+  id: 26,
+  name: "ENCHEN Boost USB Electric Hair Clipper & Beard Trimmer",
+  category: "Electronics",
+  price: 1320,
+  oldPrice: 1500,
+  rating: 5,
+  stock: 12,
+  emoji: "💈",
+  images: [
+    "https://i.imgur.com/4Z3Djea.png",
+    "https://i.imgur.com/NBWiZ4l.png",
+    "https://i.imgur.com/ln93qW9.png",
+    "https://i.imgur.com/PIhI5Qq.png"
+  ],
+  colors: ["Black", "White"],
+  desc: "Keep your grooming routine simple with the ENCHEN Boost USB Electric Hair Clipper & Beard Trimmer. Featuring a sleek, modern design, this clipper is suitable for everyday hair trimming and beard grooming at home or while travelling. Its USB charging design offers convenient power access, while the compact build makes it easy to handle and store. Available in Black and White to match your style. Enjoy convenient personal grooming at an affordable price."
+},
+   
 ];
