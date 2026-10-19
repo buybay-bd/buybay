@@ -19,3 +19,24 @@ const BANNERS = [
   // "https://i.imgur.com/yyyyyyy.jpeg",   // <- 2nd image link
   // "https://i.imgur.com/zzzzzzz.jpeg",   // <- 3rd image link (add as many as you like)
 ];
+
+/* ===== PROMO CODES =====
+   Write a code and its discount PERCENT, one per line:   CODE: percent,
+   - A code written here is ACTIVE: it is shown in the top bar of the website and the customer
+     can type it at checkout (before payment) to get the discount.
+   - To stop a code, delete its line. Remove all lines (leave it empty) and the website shows
+     NO promo code anywhere: no top-bar message and no coupon box at checkout.
+   - Capital letters are best (the customer can type small letters too). */
+const PROMO_CODES = {
+  WELCOME5: 5,    // 5% off
+};
+
+
+
+
+
+
+
+
+
+
