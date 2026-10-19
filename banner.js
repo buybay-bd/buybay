@@ -29,7 +29,7 @@ const BANNERS = [
    - Capital letters are best (the customer can type small letters too). */
 const PROMO_CODES = {
   WELCOME5: 5,    // 5% off
-};
+}; 
 
 
 
