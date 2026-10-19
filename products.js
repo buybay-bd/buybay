@@ -489,7 +489,7 @@ const PRODUCTS = [
   stock: 14,
   emoji: "🌳",
   images: [
-    "https://i.imgur.com/yKD4NFm.png",
+    "https://i.imgur.com/mCNUEC1.png",
     "https://i.imgur.com/PmfGd6K.png",
     "https://i.imgur.com/siaaFpH.png",
     "https://i.imgur.com/WfD6CUG.png"
