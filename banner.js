@@ -13,7 +13,6 @@ const BANNERS = [
     "https://i.imgur.com/mCNUEC1.png",
    "https://i.imgur.com/ARJ0xxx.png",
     "https://i.imgur.com/4Z3Djea.png",
-    "https://i.imgur.com/sKUZ6YU.jpeg",
     "https://i.imgur.com/QA8WXt0.jpeg",
 
   // "https://i.imgur.com/sKUZ6YU.jpeg",   // <- remove the // and put your 1st image link
