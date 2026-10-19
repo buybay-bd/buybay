@@ -9,7 +9,13 @@ const CONFIG = {
   DELIVERY_OUTSIDE: 1500,
   FREE_OVER: 5000                      // free delivery above this subtotal
 };
-const COUPONS = { BUYBAY10: 10, WELCOME5: 5 }; // coupon code: % off. Edit freely
+/* promo codes come from banner.js (PROMO_CODES). No codes there = no promo anywhere on the site. */
+const COUPONS = {};
+if (typeof PROMO_CODES !== "undefined" && PROMO_CODES) Object.entries(PROMO_CODES).forEach(([c, p]) => {
+  const code = String(c).trim().toUpperCase(), pct = Number(p);
+  if (code && pct > 0 && pct <= 100) COUPONS[code] = pct;
+});
+const PROMO_LIST = Object.entries(COUPONS);
 const DISTRICTS = ["Bagerhat","Bandarban","Barguna","Barishal","Bhola","Bogura","Brahmanbaria","Chandpur","Chattogram","Chuadanga","Cumilla","Cox's Bazar","Dhaka","Dinajpur","Faridpur","Feni","Gaibandha","Gazipur","Gopalganj","Habiganj","Jamalpur","Jashore","Jhalakathi","Jhenaidah","Joypurhat","Khagrachhari","Khulna","Kishoreganj","Kurigram","Kushtia","Lakshmipur","Lalmonirhat","Madaripur","Magura","Manikganj","Meherpur","Moulvibazar","Munshiganj","Mymensingh","Naogaon","Narail","Narayanganj","Narsingdi","Natore","Netrokona","Nilphamari","Noakhali","Pabna","Panchagarh","Patuakhali","Pirojpur","Rajbari","Rajshahi","Rangamati","Rangpur","Satkhira","Shariatpur","Sherpur","Sirajganj","Sunamganj","Sylhet","Tangail","Thakurgaon"];
 
 // If a photo fails to load, show the product emoji instead of a broken image
@@ -90,7 +96,7 @@ function toast(msg) {
 /* ---------- shared shell ---------- */
 function buildShell() {
   document.body.insertAdjacentHTML("afterbegin", `
-  <div class="top"><span>📞 Helpline: <a href="tel:${CONFIG.HELPLINE}">${CONFIG.HELPLINE}</a></span><span>Free delivery over ${money(CONFIG.FREE_OVER)}</span><span>Use code <a>BUYBAY10</a> for 10% off</span></div>
+  <div class="top"><span>📞 Helpline: <a href="tel:${CONFIG.HELPLINE}">${CONFIG.HELPLINE}</a></span><span>Free delivery over ${money(CONFIG.FREE_OVER)}</span>${PROMO_LIST.length ? `<span>Use code ${PROMO_LIST.map(([c, p]) => `<a>${c}</a> for ${p}% off`).join(" or ")}</span>` : ""}</div>
   <header><div class="wrap nav">
     <button class="menu" id="menu" aria-label="Menu">☰</button>
     <a href="index.html" class="logo" aria-label="BuyBay home"><b>Buy</b><i>Bay</i></a>
@@ -277,7 +283,7 @@ function openCheckout() {
       <label><input type="radio" name="pm" value="bKash">bKash</label>
       <label><input type="radio" name="pm" value="Nagad">Nagad</label></div></div>
     <div id="pinfo"></div>
-    <div class="two" style="grid-template-columns:1fr auto"><input id="cpn" placeholder="Coupon code (e.g. BUYBAY10)"><button type="button" class="btn ghost" id="capp">Apply</button></div>
+    ${PROMO_LIST.length ? `<div class="two" style="grid-template-columns:1fr auto"><input id="cpn" placeholder="Coupon code (e.g. ${PROMO_LIST[0][0]})"><button type="button" class="btn ghost" id="capp">Apply</button></div>` : ""}
     <div id="osum"></div><p class="err" id="ferr"></p>
     <button class="btn or full" id="place">Place Order</button>
     <button class="btn ghost full" id="mplace" type="button">Order in Messenger instead</button>
@@ -294,7 +300,7 @@ function openCheckout() {
   };
   $$("input[name=pm]").forEach(r => r.onchange = upd); $("#fd").onchange = upd; upd();
   coupon = null; upd();
-  $("#capp").onclick = () => { const c = $("#cpn").value.trim().toUpperCase(); if (COUPONS[c]) { coupon = c; toast("Coupon applied: " + COUPONS[c] + "% off"); } else { coupon = null; toast("Invalid coupon code"); } upd(); };
+  if ($("#capp")) $("#capp").onclick = () => { const c = $("#cpn").value.trim().toUpperCase(); if (COUPONS[c]) { coupon = c; toast("Coupon applied: " + COUPONS[c] + "% off"); } else { coupon = null; toast("Invalid coupon code"); } upd(); };
   $("#place").onclick = () => placeOrder("wa");
   $("#mplace").onclick = () => placeOrder("fb");
   openModal("#cm2");
